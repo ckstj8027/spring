@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>상품 조회</h2>
+    </div>
+    <br> 상품명: <span th:text="${item.itemName}">상품명</span><br/>
+
+    <!-- 첨부파일 링크 -->
+    <a th:if="${item.attachFile}"
+       th:href="@{/attach/{id}(id=${item.id})}"
+       th:text="${item.attachFile.uploadFileName}">첨부파일</a><br/>
+
+    <!-- 이미지 파일들 -->
+    <div th:each="imageFile : ${item.imageFiles}">
+        <!-- 교제에는이미지도 다운 받게하고 싶어서  th:href 는 없는데 내가 추가함  -->
+        <a th:href="@{/images/{itemId}/{filename}(itemId=${item.id}, filename=${imageFile.storeFileName})}">
+            <img th:src="@{/images/{filename}(filename=${imageFile.storeFileName})}"
+                 width="300"
+                 height="300" />
+        </a>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>
